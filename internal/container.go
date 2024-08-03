@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"schtodo/internal/repositories"
+	"github.com/Xavier577/schtodo/internal/repositories"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -9,4 +9,5 @@ import (
 type AppContainer struct {
 	DB       *sqlx.DB
 	UserRepo repositories.UserRepository
+	TodoRepo repositories.TodoRepository
 }

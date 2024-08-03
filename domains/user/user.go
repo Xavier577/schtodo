@@ -3,7 +3,7 @@ package user
 import (
 	"database/sql"
 	"errors"
-	"schtodo/internal/repositories"
+	"github.com/Xavier577/schtodo/internal/repositories"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/jmoiron/sqlx"
@@ -21,10 +21,10 @@ func NewUserRepo(pg *sqlx.DB) repositories.UserRepository {
 func (u *userRepo) Create(data *repositories.CreateUserData) (*repositories.User, error) {
 	user := &repositories.User{ID: ulid.Make().String(), Username: data.Username, Password: data.Password}
 
-	query, _, errSqlBuilder := goqu.Insert("users").Rows(user).Returning("*").ToSQL()
+	query, _, errQueryBuilder := goqu.Insert("users").Rows(user).Returning("*").ToSQL()
 
-	if errSqlBuilder != nil {
-		return nil, errSqlBuilder
+	if errQueryBuilder != nil {
+		return nil, errQueryBuilder
 	}
 
 	errQueryResult := u.DB.Get(user, query)
@@ -73,4 +73,23 @@ func (u *userRepo) GetByUsername(username string) (*repositories.User, error) {
 
 	return user, nil
 
+}
+
+func (u *userRepo) Update(id string, data *repositories.UpdatableUserFields) (*repositories.User, error) {
+
+	query, _, errQueryBuilder := goqu.Update("users").Where(goqu.C("id").Eq(id)).Set(data).Returning("*").ToSQL()
+
+	if errQueryBuilder != nil {
+		return nil, errQueryBuilder
+	}
+
+	user := &repositories.User{}
+
+	errQueryResult := u.DB.Get(user, query)
+
+	if errQueryResult != nil {
+		return nil, errQueryResult
+	}
+
+	return user, nil
 }

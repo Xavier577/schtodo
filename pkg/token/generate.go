@@ -20,7 +20,7 @@ type JWTClaim struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateHS256Token(tokenGenOptions TokenGenOptions) (string, error) {
+func GenerateHS256Token(tokenGenOptions *TokenGenOptions) (string, error) {
 
 	if tokenGenOptions.Secret == "" {
 		tokenGenOptions.Secret = os.Getenv("TOKEN_SECRET")

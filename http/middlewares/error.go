@@ -1,9 +1,9 @@
 package middlewares
 
 import (
+	"github.com/Xavier577/schtodo/internal"
 	"log"
 	"net/http"
-	"schtodo/internal"
 
 	"github.com/gin-gonic/gin"
 )

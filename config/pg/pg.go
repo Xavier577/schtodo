@@ -2,8 +2,8 @@ package pg
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
+	"github.com/Xavier577/schtodo/pkg/objects"
 	"log"
 	"strings"
 	"time"
@@ -26,11 +26,11 @@ type PgConnectCfg struct {
 }
 
 func parseCfg(pgCfg *PgConnectCfg) string {
-	var cfgMap map[string]any
+	cfgMap, err := objects.MarshalStructToMap(pgCfg)
 
-	cfgJson, _ := json.Marshal(&pgCfg)
-
-	_ = json.Unmarshal(cfgJson, &cfgMap)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	var cfgPairs []string
 

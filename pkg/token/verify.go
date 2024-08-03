@@ -13,7 +13,12 @@ type TokenVerifyOptions struct {
 	SignedToken string
 }
 
-func Verify(tokenVerifyOptions TokenVerifyOptions) (bool, JWTClaim, error) {
+var (
+	ErrExpiredToken = errors.New("TOKEN_EXPIRED")
+	ErrParseToken   = errors.New("TOKEN_PARSE_ERR")
+)
+
+func Verify(tokenVerifyOptions *TokenVerifyOptions) (bool, JWTClaim, error) {
 
 	var isValid bool
 	var verificationError error
@@ -40,9 +45,9 @@ func Verify(tokenVerifyOptions TokenVerifyOptions) (bool, JWTClaim, error) {
 		isValid = true
 		jwtClaim = *claims
 	} else if !ok {
-		verificationError = errors.New("TOKEN_PARSE_ERR")
+		verificationError = ErrParseToken
 	} else if claims.ExpiresAt.Unix() < time.Now().Local().Unix() {
-		verificationError = errors.New("TOKEN_EXPIRED")
+		verificationError = ErrExpiredToken
 	}
 
 	return isValid, jwtClaim, verificationError
