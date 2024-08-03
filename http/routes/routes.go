@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"schtodo/internal"
+	"github.com/Xavier577/schtodo/internal"
 
-	_ "schtodo/http/handlers"
+	_ "github.com/Xavier577/schtodo/http/handlers"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,7 +28,7 @@ func SetupRoutes(cnt *internal.AppContainer, r *gin.Engine) {
 		case internal.PATCH:
 			r.PATCH(v.Path, routeHandlers...)
 		case internal.DELETE:
-			r.PATCH(v.Path, routeHandlers...)
+			r.DELETE(v.Path, routeHandlers...)
 		}
 
 	}

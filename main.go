@@ -3,15 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/Xavier577/schtodo/config/app"
+	"github.com/Xavier577/schtodo/config/env"
+	"github.com/Xavier577/schtodo/config/pg"
+	"github.com/Xavier577/schtodo/domains/todo"
+	"github.com/Xavier577/schtodo/domains/user"
+	"github.com/Xavier577/schtodo/internal"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
-	"schtodo/config/app"
-	"schtodo/config/env"
-	"schtodo/config/pg"
-	"schtodo/domains/user"
-	"schtodo/internal"
 	"syscall"
 	"time"
 )
@@ -38,7 +39,7 @@ func main() {
 	// gracefully close db
 	defer db.Close()
 
-	appCnt := &internal.AppContainer{DB: db, UserRepo: user.NewUserRepo(db)}
+	appCnt := &internal.AppContainer{DB: db, UserRepo: user.NewUserRepo(db), TodoRepo: todo.NewTodoRepo(db)}
 
 	appInstance := app.NewApp(appCnt)
 
@@ -68,7 +69,7 @@ func main() {
 	<-quit
 	log.Println("Shutdown Server ...")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)

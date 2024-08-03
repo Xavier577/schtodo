@@ -3,14 +3,15 @@ package middlewares
 import (
 	"io"
 	"net/http"
-	"schtodo/internal"
+
+	"github.com/Xavier577/schtodo/internal"
 
 	"github.com/gin-gonic/gin"
 )
 
 const (
 	Params = "params"
-	Body   = "param"
+	Body   = "body"
 	Query  = "query"
 )
 
@@ -43,7 +44,8 @@ func ValidateReq(dto any, context string) internal.ControllerHandler {
 					ctx.Abort()
 				} else {
 
-					ctx.Set("payload", dto)
+					ctx.Set(context, dto)
+
 					ctx.Next()
 				}
 			}
