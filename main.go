@@ -45,7 +45,7 @@ func main() {
 
 	appInstance := app.NewApp(appCnt)
 
-	addr := fmt.Sprintf("127.0.0.1:%v", os.Getenv("PORT"))
+	addr := fmt.Sprintf("0.0.0.0:%v", os.Getenv("PORT"))
 
 	srv := &http.Server{
 		Addr:    addr,
