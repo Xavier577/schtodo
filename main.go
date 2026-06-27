@@ -27,6 +27,8 @@ func main() {
 		SSLMode = "disable"
 	}
 
+	log.Println(os.Getenv("PG_HOST"))
+
 	db := pg.Connect(&pg.PgConnectCfg{
 		DBName:   os.Getenv("PG_DATABASE"),
 		Host:     os.Getenv("PG_HOST"),
