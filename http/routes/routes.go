@@ -11,17 +11,17 @@ import (
 
 func SetupRoutes(cnt *internal.AppContainer, r *gin.Engine) {
 
+	r.GET("/healthzz", func (ctx *gin.Context){
+			internal.NewHttpReponse(http.StatusOK, "Success", nil).Send(ctx)
+		})
+
 	for _, v := range internal.AppControllerList() {
 
 		routeHandlers := []gin.HandlerFunc{}
 
 		for _, controllerHandler := range v.Handlers {
 			routeHandlers = append(routeHandlers, controllerHandler(cnt))
-		}
-
-		r.GET("/healthzz", func (ctx *gin.Context){
-			internal.NewHttpReponse(http.StatusOK, "Success", nil).Send(ctx)
-		})
+		}	
 
 		switch v.Method {
 		case internal.GET:
