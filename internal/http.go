@@ -66,7 +66,7 @@ type HttpResponse struct {
 
 type HttpResponseBody struct {
 	Message string `json:"message"`
-	Data    any    `json:"data"`
+	Data    any    `json:"data,omitempty"`
 }
 
 func (e HttpResponse) ResponseBody() map[string]any {
