@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/Xavier577/schtodo/config/app"
-	"github.com/Xavier577/schtodo/config/env"
+	// "github.com/Xavier577/schtodo/config/env"
 	"github.com/Xavier577/schtodo/config/pg"
 	"github.com/Xavier577/schtodo/domains/todo"
 	"github.com/Xavier577/schtodo/domains/user"
