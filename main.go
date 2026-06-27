@@ -19,7 +19,7 @@ import (
 
 func main() {
 
-	env.LoadEnv()
+	// env.LoadEnv()
 
 	SSLMode := os.Getenv("PG_SSL_MODE")
 
