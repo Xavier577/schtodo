@@ -19,7 +19,7 @@ func SetupRoutes(cnt *internal.AppContainer, r *gin.Engine) {
 			routeHandlers = append(routeHandlers, controllerHandler(cnt))
 		}
 
-		r.GET("/", func (ctx *gin.Context){
+		r.GET("/healthzz", func (ctx *gin.Context){
 			internal.NewHttpReponse(http.StatusOK, "Success", nil).Send(ctx)
 		})
 
