@@ -18,6 +18,10 @@ func SetupRoutes(cnt *internal.AppContainer, r *gin.Engine) {
 			routeHandlers = append(routeHandlers, controllerHandler(cnt))
 		}
 
+		r.GET('/', func (ctx *gin.Context){
+			internal.NewHttpReponse(http.StatusOK, "Success", nil).Send(ctx)
+		})
+
 		switch v.Method {
 		case internal.GET:
 			r.GET(v.Path, routeHandlers...)
