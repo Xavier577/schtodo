@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"net/http"
 	"github.com/Xavier577/schtodo/internal"
 
 	_ "github.com/Xavier577/schtodo/http/handlers"
